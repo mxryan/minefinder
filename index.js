@@ -15,6 +15,7 @@ app.get("/api/example", (req, res)=>{
 });
 
 app.post("/api/newuser", (req,res)=>{
+  console.log(req.body);
   db.Users.create(req.body).then(d=>{
     res.json(d)
   }).catch(e=>{
