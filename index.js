@@ -14,7 +14,7 @@ app.get("/api/example", (req, res)=>{
   res.json({greeting: "hello world"});
 });
 
-app.post("/api/newuser", (req,res)=>{
+app.post("/api/signup", (req,res)=>{
   console.log(req.body);
   db.Users.create(req.body).then(d=>{
     res.json(d)
@@ -29,7 +29,7 @@ app.get("*", (req, res) => {
 });
 
 const PORT = process.env.PORT || 5000;
-db.sequelize.sync({force: false}).then(()=>{
+db.sequelize.sync({force: true}).then(()=>{
   app.listen(PORT, ()=>{
     console.log("Listening at " + PORT);
   })
