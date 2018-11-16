@@ -11,6 +11,7 @@
     "heroku-postbuild": "cd client && yarn && yarn run build"
   },
   "dependencies": {
+    "bcrypt-nodejs": "^0.0.3",
     "express": "^4.16.4",
     "mysql2": "^1.6.4",
     "passport": "^0.4.0",
