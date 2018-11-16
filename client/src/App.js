@@ -3,7 +3,6 @@ import Game from "./pages/Game/";
 import Signup from "./pages/Signup";
 import Nav from "./components/Nav";
 
-
 class App extends Component {
   constructor(props) {
     super(props);
@@ -14,6 +13,7 @@ class App extends Component {
       signupPassword: ""
     }
   }
+
   changePage = (e) => {
     let name = e.target.getAttribute("name");
     this.setState({
