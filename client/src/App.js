@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import Game from "./pages/Game/";
 import Signup from "./pages/Signup";
+import Login from "./pages/Login";
 import Nav from "./components/Nav";
+
+// refactor login and signup user/pass in state to just one of each?
 
 class App extends Component {
   constructor(props) {
@@ -10,7 +13,9 @@ class App extends Component {
       loggedIn: false,
       page: "welcome",
       signupUsername: "",
-      signupPassword: ""
+      signupPassword: "",
+      loginUsername: "",
+      loginPassword: ""
     }
   }
 
@@ -48,6 +53,9 @@ class App extends Component {
         break;
       case "signup":
         page = (<Signup handleChange={this.handleFormChange} submitSignup={this.submitSignup} />)
+        break;
+      case "login":
+        page = (<Login handleChange={this.handleFormChange} submitSignup={this.submitLogin} />);
         break;
       default:
         page = (<Game />);
