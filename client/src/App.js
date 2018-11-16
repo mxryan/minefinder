@@ -3,6 +3,7 @@ import Game from "./pages/Game/";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import Nav from "./components/Nav";
+import Infobar from "./components/Infobar";
 
 // refactor login and signup user/pass in state to just one of each?
 
@@ -32,7 +33,7 @@ class App extends Component {
     console.log(this.state);
   }
 
-  submitSignup = ()=>{
+  submitSignup = () => {
     let outData = {
       username: this.state.signupUsername,
       password: this.state.signupPassword
@@ -40,11 +41,19 @@ class App extends Component {
     fetch("/api/signup", {
       method: "POST",
       headers: {
-          "Content-Type": "application/json; charset=utf-8",
+        "Content-Type": "application/json; charset=utf-8",
       },
       body: JSON.stringify(outData)
-  }).then(r => r.json()).then(d=>console.log(d)).catch(e=>console.log(e));
+    }).then(r => r.json()).then(d => console.log(d)).catch(e => console.log(e));
   }
+
+  pingServer = () => {
+    fetch("/api/ping")
+    .then(res => res.json())
+    .then(d => console.log(d))
+    .catch(e=>console.log(e));
+  }
+
   render() {
     let page;
     switch (this.state.page) {
@@ -62,6 +71,7 @@ class App extends Component {
     }
     return (
       <div>
+        <Infobar pingServer={this.pingServer} />
         <Nav changePage={this.changePage} />
         {page}
       </div>
