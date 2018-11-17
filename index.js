@@ -54,6 +54,11 @@ app.get("/api/ping", (req, res) => {
   }
   res.json(serverResponse);
   
+});
+
+app.post("/api/results", (req, res)=>{
+  console.log(req.body);
+  res.json({msg: "I got your post request, thanks."})
 })
 
 

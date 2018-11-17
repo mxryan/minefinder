@@ -1,6 +1,8 @@
 import React from "react";
 import Tile from "../Tile";
 
+//todo: remove rows and columns as arguments and just call this.props.rows/columns in function body
+
 //colors : https://color.adobe.com/Copie-de-Copy-of-Pastels-color-theme-11556921/edit/?copy=true
 // nice but not super necessary features:
 // clicking on a revealed tile which has a number that matched number of adjacent flags reveals neighboring tiles
@@ -12,6 +14,19 @@ class Board extends React.Component {
       boardState: this.boardInit(this.props.rows, this.props.columns),
       boardRevealedState: this.boardInit(this.props.rows, this.props.columns)
     }
+  }
+
+  checkForWin = () => {
+    if (this.props.mines === this.props.flagsPlaced) {
+      for (let y = 0; y < this.props.rows; y++) {
+        for (let x = 0; x < this.props.columns; x++ ) {
+          if (this.state.boardRevealedState[y][x]) continue;
+          return false;
+        }
+      }
+      return true;
+    }
+    return false
   }
 
   handleClick = (e) => {
