@@ -1,4 +1,5 @@
 const express = require("express");
+const session = require("express-session");
 const path = require("path");
 const db = require("./models");
 const passport = require("./config/passport");
@@ -9,7 +10,13 @@ app.use(express.json());
 
 app.use(express.static(path.join(__dirname, "client/build")));
 
+app.use(session({
+  secret: "keyboard cat",
+  resave: true,
+  saveUninitialized: true 
+}));
 app.use(passport.initialize());
+app.use(passport.session());
 
 
 
@@ -32,6 +39,17 @@ app.post("/api/login", passport.authenticate("local"), function (req, res) {
   console.log("hi");
   res.json(req.user);
 });
+
+app.get("/api/ping", (req, res) => {
+  console.log(req);
+  const serverResponse = {
+    msg: "Hey, I'm listening",
+    requestObject: req.user ? "There is a user" : "There is no user",
+    // isUser: req.user
+  }
+  res.json(serverResponse);
+  
+})
 
 
 app.get("*", (req, res) => {

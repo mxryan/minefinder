@@ -46,12 +46,25 @@ class App extends Component {
       body: JSON.stringify(outData)
     }).then(r => r.json()).then(d => console.log(d)).catch(e => console.log(e));
   }
+  submitLogin = () => {
+    let outData = {
+      username: this.state.loginUsername,
+      password: this.state.loginPassword
+    }
+    fetch("/api/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json; charset=utf-8",
+      },
+      body: JSON.stringify(outData)
+    }).then(r => r.json()).then(d => console.log(d)).catch(e => console.log(e));
+  }
 
   pingServer = () => {
     fetch("/api/ping")
     .then(res => res.json())
     .then(d => console.log(d))
-    .catch(e=>console.log(e));
+    .catch(e => console.log(e));
   }
 
   render() {
