@@ -34,11 +34,16 @@ app.post("/api/signup", (req,res)=>{
   });
 })
 
-app.post("/api/login", passport.authenticate("local"), function (req, res) {
+app.post("/api/login", passport.authenticate("local"), (req, res) => {
   console.log(req.user);
   console.log("hi");
   res.json(req.user);
 });
+
+app.get("/api/logout", (req,res)=>{
+  req.logOut();
+  res.json({msg: "User logged out"});
+})
 
 app.get("/api/ping", (req, res) => {
   console.log(req);

@@ -57,21 +57,31 @@ class App extends Component {
         "Content-Type": "application/json; charset=utf-8",
       },
       body: JSON.stringify(outData)
-    }).then(r => r.json()).then(d => console.log(d)).catch(e => console.log(e));
+    })
+      .then(r => r.json())
+      .then(d => console.log(d))
+      .catch(e => console.log(e));
+  }
+
+  logOut = () => {
+    fetch("/api/logout")
+      .then(r => r.json())
+      .then(d => console.log(d))
+      .catch(e => console.log(e));
   }
 
   pingServer = () => {
     fetch("/api/ping")
-    .then(res => res.json())
-    .then(d => console.log(d))
-    .catch(e => console.log(e));
+      .then(res => res.json())
+      .then(d => console.log(d))
+      .catch(e => console.log(e));
   }
 
   render() {
     let page;
     switch (this.state.page) {
       case "welcome":
-        page = (<div><h1>Welcome!</h1></div>);
+        page = (<div><h1>Welcome!</h1><button onClick={this.logOut}>Logout</button></div>);
         break;
       case "signup":
         page = (<Signup handleChange={this.handleFormChange} submitSignup={this.submitSignup} />)
