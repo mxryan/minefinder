@@ -16,11 +16,11 @@ class Board extends React.Component {
     }
   }
 
-  checkForWin = () => {
+  checkForWin = (arr) => {
     if (this.props.mines === this.props.flagsPlaced) {
       for (let y = 0; y < this.props.rows; y++) {
         for (let x = 0; x < this.props.columns; x++ ) {
-          if (this.state.boardRevealedState[y][x]) continue;
+          if (arr[y][x]) continue;
           return false;
         }
       }
@@ -48,6 +48,9 @@ class Board extends React.Component {
         this.setState({
           boardRevealedState: copyOfRevealedState
         });
+        if (this.checkForWin(copyOfRevealedState)) {
+          this.props.userWins();
+        }
       }
     }
   }

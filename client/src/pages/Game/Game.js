@@ -58,7 +58,8 @@ class Game extends React.Component {
     this.setState({
       gameWon: true,
       intervalId: null
-    })
+    });
+    alert("You win!")
   }
 
   render() {
