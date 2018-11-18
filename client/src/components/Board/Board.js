@@ -251,6 +251,12 @@ class Board extends React.Component {
         boardRevealedState: this.boardInit(this.props.rows, this.props.columns)
       });
     }
+    if (prevProps.gameStarted && !this.props.gameStarted) {
+      this.setState({
+        boardState: this.boardInit(this.props.rows, this.props.columns),
+        boardRevealedState: this.boardInit(this.props.rows, this.props.columns)
+      });
+    }
   }
 
   render() {
@@ -278,7 +284,9 @@ class Board extends React.Component {
     });
 
     return (
-      <div id="board" style={boardStyle}> {tiles} </div>
+     
+        <div id="board" style={boardStyle}> {tiles} </div>
+     
     );
   }
 }
