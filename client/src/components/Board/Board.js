@@ -19,7 +19,20 @@ class Board extends React.Component {
   checkForWin = (arr) => {
     if (this.props.mines === this.props.flagsPlaced) {
       for (let y = 0; y < this.props.rows; y++) {
-        for (let x = 0; x < this.props.columns; x++ ) {
+        for (let x = 0; x < this.props.columns; x++) {
+          if (arr[y][x]) continue;
+          return false;
+        }
+      }
+      return true;
+    }
+    return false
+  }
+
+  checkForWinOnFlag = (arr) => {
+    if (this.props.mines === this.props.flagsPlaced + 1) {
+      for (let y = 0; y < this.props.rows; y++) {
+        for (let x = 0; x < this.props.columns; x++) {
           if (arr[y][x]) continue;
           return false;
         }
@@ -48,6 +61,7 @@ class Board extends React.Component {
         this.setState({
           boardRevealedState: copyOfRevealedState
         });
+        console.log("About to check for win");
         if (this.checkForWin(copyOfRevealedState)) {
           this.props.userWins();
         }
@@ -101,6 +115,9 @@ class Board extends React.Component {
     const copyOfRevealedState = this.copyRevealedState(this.props.rows, this.props.columns);
     if (!copyOfRevealedState[coords.y][coords.x]) {
       copyOfRevealedState[coords.y][coords.x] = -1;
+      if (this.checkForWinOnFlag(copyOfRevealedState)) {
+        this.props.userWins();
+      }
       this.props.incrementFlagsPlaced();
     } else {
       copyOfRevealedState[coords.y][coords.x] = 0;
@@ -109,6 +126,7 @@ class Board extends React.Component {
     this.setState({
       boardRevealedState: copyOfRevealedState
     });
+    
   }
 
   copyBoardState = (rows, columns) => {
@@ -224,8 +242,13 @@ class Board extends React.Component {
     }
   }
 
-  componentDidUpdate() {
-    console.log(this.state);
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.rows !== this.props.rows) {
+      this.setState({
+        boardState: this.boardInit(this.props.rows, this.props.columns),
+        boardRevealedState: this.boardInit(this.props.rows, this.props.columns)
+      });
+    }
   }
 
   render() {
@@ -240,20 +263,20 @@ class Board extends React.Component {
 
     const tiles = this.state.boardState.map((row, y) => {
       return row.map((tile, x) => {
-        return ( 
-        <Tile 
-          key={y + "." + x} 
-          contents={this.state.boardState[y][x]}
-          revealed={this.state.boardRevealedState[y][x]}
-          handleClick={this.handleClick}
-          coords={y + "." + x}
-          handleRightClick={this.handleRightClick}/>
+        return (
+          <Tile
+            key={y + "." + x}
+            contents={this.state.boardState[y][x]}
+            revealed={this.state.boardRevealedState[y][x]}
+            handleClick={this.handleClick}
+            coords={y + "." + x}
+            handleRightClick={this.handleRightClick} />
         );
       })
     });
 
-    return ( 
-    <div id="board"style={boardStyle}> {tiles} </div>
+    return (
+      <div id="board" style={boardStyle}> {tiles} </div>
     );
   }
 }

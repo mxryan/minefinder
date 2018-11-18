@@ -1,7 +1,12 @@
 import React from "react";
 import Display from "../../components/Display";
 import Board from "../../components/Board";
+import ControlPanel from "../../components/ControlPanel";
 
+// if you win, hit a bomb, or navigate away from page, send game results to the server
+// game size: small 9*9, 10; 16*16, 40; 20*24, 100(questionable density?);
+// NEED TO STOP TIMER IN COMPONTENT WILL UNMOUNT LIFECYCLE METHOD OF BOARD BECAUSE MEM LEAK?
+// REMOVE EXTRA CONSOLE LOGS
 class Game extends React.Component {
   constructor(props) {
     super(props);
@@ -15,6 +20,29 @@ class Game extends React.Component {
       intervalId: null,
       gameWon: false
     };
+  }
+
+  changeBoardSize = (e) => {
+    let chosenSize = e.target.getAttribute("name");
+    if (chosenSize === "small") {
+      this.setState({
+        rows: 9,
+        columns: 9,
+        mines: 10
+      });
+    } else if (chosenSize === "medium") {
+      this.setState({
+        rows: 16,
+        columns: 16,
+        mines: 40
+      });
+    } else {
+      this.setState({
+        rows: 20,
+        columns: 24,
+        mines: 100
+      });
+    }
   }
   startGame = () => {
     this.setState({
@@ -70,6 +98,10 @@ class Game extends React.Component {
           mines={this.state.mines}
           timeElapsed={this.state.timeElapsed}
         />
+        <ControlPanel 
+          changeBoardSize={this.changeBoardSize}
+        />
+
         <Board 
           rows={this.state.rows}
           columns={this.state.columns}
