@@ -20,7 +20,7 @@ const Tile = (props) => {
   let content;
   if (props.revealed === 1) {
     if (props.contents === 99) {
-      content = <i class="fas fa-fire"></i>
+      content = <i className="fas fa-fire"></i>
     } else if (props.contents) {
       content = props.contents
     } else {

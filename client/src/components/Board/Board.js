@@ -43,6 +43,8 @@ class Board extends React.Component {
   }
 
   handleClick = (e) => {
+    // if game is started but interval id is null then the current game is over so dont allow a click
+    if (this.props.gameStarted && !this.props.intervalId) return;
     if (!e.target.getAttribute("coords")) return;
     let coords = e.target.getAttribute("coords").split(".");
     const clickedCoords = {
@@ -76,8 +78,7 @@ class Board extends React.Component {
       x
     } = coords;
     if (copyOfBoardState[y][x] === 99) {
-      alert("GAME OVER!")
-      return console.log("Game over function should be called here");
+      this.props.userLoses();
     }
     if (copyOfRevealedState[y][x] === 0) {
       copyOfRevealedState[y][x] = 1;
@@ -102,6 +103,7 @@ class Board extends React.Component {
 
   handleRightClick = (e) => {
     e.preventDefault();
+    if (this.props.gameStarted && !this.props.intervalId) return;
     let coords = e.target.getAttribute("coords").split(".");
     const clickedCoords = {
       y: parseInt(coords[0]),

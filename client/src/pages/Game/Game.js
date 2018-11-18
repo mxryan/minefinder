@@ -69,7 +69,7 @@ class Game extends React.Component {
       timeElapsed: this.state.timeElapsed,
       gameWon: this.state.gameWon
     }
-    fetch("/api/login", {
+    fetch("/api/results", {
       method: "POST",
       headers: {
         "Content-Type": "application/json; charset=utf-8",
@@ -88,6 +88,16 @@ class Game extends React.Component {
       intervalId: null
     });
     alert("You win!")
+    this.postGameState();
+  }
+
+  userLoses = () => {
+    clearInterval(this.state.intervalId);
+    this.setState({
+      intervalId: null
+    });
+    alert("You lost");
+    this.postGameState();
   }
 
   render() {
@@ -107,10 +117,12 @@ class Game extends React.Component {
           columns={this.state.columns}
           mines={this.state.mines}
           gameStarted={this.state.started}
+          intervalId={this.state.intervalId}
           startGame={this.startGame}
           incrementFlagsPlaced={this.incrementFlagsPlaced}
           decrementFlagsPlaced={this.decrementFlagsPlaced}
           userWins={this.userWins}
+          userLoses={this.userLoses}
           flagsPlaced={this.state.flagsPlaced}
         />
 

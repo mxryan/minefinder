@@ -57,6 +57,7 @@ app.get("/api/ping", (req, res) => {
 });
 
 app.post("/api/results", (req, res)=>{
+  // if the game time is greater than 1000 seconds, count it as a loss?
   console.log(req.body);
   res.json({msg: "I got your post request, thanks."})
 })
