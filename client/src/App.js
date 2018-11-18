@@ -58,7 +58,13 @@ class App extends Component {
       },
       body: JSON.stringify(outData)
     })
-      .then(r => r.json())
+    .then(res => {
+      if(res.ok) {
+        return res.json();
+      } else {
+        throw Error(`Request rejected with status ${res.status}`);
+      }
+    })
       .then(d => console.log(d))
       .catch(e => console.log(e));
   }
