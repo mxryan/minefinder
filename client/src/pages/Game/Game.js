@@ -74,6 +74,7 @@ class Game extends React.Component {
         timeElapsed: this.state.timeElapsed,
         gameWon: gameWon
       }
+      // may need an object that says credentials: true, see: https://medium.com/cameron-nokes/4-common-mistakes-front-end-developers-make-when-using-fetch-1f974f9d1aa1
       fetch("/api/results", {
         method: "POST",
         headers: {

@@ -68,7 +68,7 @@ app.get("*", (req, res) => {
 });
 
 const PORT = process.env.PORT || 5000;
-db.sequelize.sync({force: false}).then(()=>{
+db.sequelize.sync({force: true}).then(()=>{
   app.listen(PORT, ()=>{
     console.log("Listening at " + PORT);
   })

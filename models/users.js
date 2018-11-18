@@ -17,31 +17,66 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false
     },
-    wins: {
+    small_wins: {
       type: DataTypes.INTEGER,
       allowNull: false,
       defaultValue: 0
     },
-    losses: {
+    small_losses: {
       type: DataTypes.INTEGER,
       allowNull: false,
       defaultValue: 0
     },
-    averageTime: {
+    small_time: {
       type: DataTypes.INTEGER,
       allowNull: true,
     },
-    bestTime: {
+    small_best_time: {
+      type: DataTypes.INTEGER,
+      allowNull: true
+    },
+    medium_wins: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 0
+    },
+    medium_losses: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 0
+    },
+    medium_time: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
+    medium_best_time: {
+      type: DataTypes.INTEGER,
+      allowNull: true
+    },
+    large_wins: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 0
+    },
+    large_losses: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 0
+    },
+    large_time: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
+    large_best_time: {
       type: DataTypes.INTEGER,
       allowNull: true
     }
   });
-  // Creating a custom method for our User model. This will check if an unhashed password entered by the user can be compared to the hashed password stored in our database
+
   Users.prototype.validPassword = function (password) {
     return bcrypt.compareSync(password, this.password);
   };
-  // Hooks are automatic methods that run during various phases of the User Model lifecycle
-  // In this case, before a User is created, we will automatically hash their password
+
   Users.hook("beforeCreate", function (user) {
     user.password = bcrypt.hashSync(user.password, bcrypt.genSaltSync(10), null);
   });
