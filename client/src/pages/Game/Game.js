@@ -4,11 +4,9 @@ import Board from "../../components/Board";
 import ControlPanel from "../../components/ControlPanel";
 
 // if you win, hit a bomb, or navigate away from page, send game results to the server
-// game size: small 9*9, 10; 16*16, 40; 20*24, 100(questionable density?);
-// NEED TO STOP TIMER IN COMPONTENT WILL UNMOUNT LIFECYCLE METHOD OF BOARD BECAUSE MEM LEAK?
 // REMOVE EXTRA CONSOLE LOGS
 // on loss, show misplaced flags and all bomb locations?
-// CLEAR INTERVAL WHEN U NAVIGATE AWAY FROM GAME
+
 class Game extends React.Component {
   constructor(props) {
     super(props);

@@ -12,7 +12,9 @@ class App extends Component {
     super(props);
     this.state = {
       loggedIn: false,
-      page: "welcome",
+      username: null,
+      userId: null,
+      page: "login",
       signupUsername: "",
       signupPassword: "",
       loginUsername: "",
@@ -27,10 +29,10 @@ class App extends Component {
     });
   }
 
+
   handleFormChange = (e) => {
     let name = e.target.id;
     this.setState({ [name]: e.target.value });
-    console.log(this.state);
   }
 
   submitSignup = () => {
@@ -44,8 +46,12 @@ class App extends Component {
         "Content-Type": "application/json; charset=utf-8",
       },
       body: JSON.stringify(outData)
-    }).then(r => r.json()).then(d => console.log(d)).catch(e => console.log(e));
+    })
+    .then(r => r.json())
+    .then(d => console.log(d))
+    .catch(e => console.log(e));
   }
+
   submitLogin = () => {
     let outData = {
       username: this.state.loginUsername,
@@ -65,8 +71,20 @@ class App extends Component {
         throw Error(`Request rejected with status ${res.status}`);
       }
     })
-      .then(d => console.log(d))
-      .catch(e => console.log(e));
+      .then(d => {
+        // user succesfully logs in, what do now?
+        console.log(d);
+        console.log(`welcome ${d.username}`)
+        this.setState({
+          loggedIn: true,
+          username: d.username,
+          userId: d.id
+        })
+      })
+      .catch(e => {
+        // login unsuccesful
+        console.log(e)
+      });
   }
 
   logOut = () => {
@@ -81,6 +99,9 @@ class App extends Component {
       .then(res => res.json())
       .then(d => console.log(d))
       .catch(e => console.log(e));
+  }
+  componentDidUpdate(){
+    console.log(this.state);
   }
 
   render() {

@@ -49,8 +49,7 @@ app.get("/api/ping", (req, res) => {
   console.log(req);
   const serverResponse = {
     msg: "Hey, I'm listening",
-    requestObject: req.user ? "There is a user" : "There is no user",
-    // isUser: req.user
+    user: req.user ? true : false,
   }
   res.json(serverResponse);
   
