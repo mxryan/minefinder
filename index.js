@@ -5,6 +5,8 @@ const db = require("./models");
 const passport = require("./config/passport");
 const app = express();
 
+// **IF YOU REVEAL THE LAST SQUARE AND ITS A BOMB BUT YOU ARE AT 0 BOMBS LEFT (by mistakenly flagging wrong square) THE GAME POSTS A WIN AND A LOSS BUT SHOULD JUST BE A LOSS
+
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
@@ -17,12 +19,6 @@ app.use(session({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
-
-
-
-app.get("/api/example", (req, res)=>{
-  res.json({greeting: "hello world"});
-});
 
 app.post("/api/signup", (req,res)=>{
   console.log(req.body);
@@ -55,9 +51,12 @@ app.get("/api/ping", (req, res) => {
   
 });
 
-app.post("/api/results", (req, res)=>{
+app.post("/api/results/", (req, res)=>{
   // if the game time is greater than 1000 seconds, count it as a loss?
+  console.log("body----------------------")
   console.log(req.body);
+  console.log("user---------------------------")
+  console.log(req.user);
   res.json({msg: "I got your post request, thanks."})
 })
 

@@ -7,6 +7,8 @@ import ControlPanel from "../../components/ControlPanel";
 // REMOVE EXTRA CONSOLE LOGS
 // on loss, show misplaced flags and all bomb locations?
 
+// **IF YOU REVEAL THE LAST SQUARE AND ITS A BOMB BUT YOU ARE AT 0 BOMBS LEFT (by mistakenly flagging wrong square) THE GAME POSTS A WIN AND A LOSS BUT SHOULD JUST BE A LOSS
+
 class Game extends React.Component {
   constructor(props) {
     super(props);
@@ -19,7 +21,8 @@ class Game extends React.Component {
       flagsPlaced: 0,
       intervalId: null,
       gameWon: false,
-      dataSentToServer: false
+      dataSentToServer: false,
+      boardSize: "medium"
     };
   }
 
@@ -30,19 +33,22 @@ class Game extends React.Component {
       this.setState({
         rows: 9,
         columns: 9,
-        mines: 10
+        mines: 10,
+        boardSize: chosenSize
       });
     } else if (chosenSize === "medium") {
       this.setState({
         rows: 16,
         columns: 16,
-        mines: 40
+        mines: 40,
+        boardSize: chosenSize
       });
     } else {
       this.setState({
         rows: 20,
         columns: 24,
-        mines: 100
+        mines: 100,
+        boardSize: chosenSize
       });
     }
   }
@@ -68,12 +74,13 @@ class Game extends React.Component {
   postGameState = (gameWon) => {
     if (!this.state.dataSentToServer) {
       let outData = {
-        gameStarted: this.state.gameStarted,
+        gameStarted: this.state.started,
         timeElapsed: this.state.timeElapsed,
-        gameWon: gameWon
+        gameWon: gameWon,
+        boardSize: this.state.boardSize
       }
       // may need an object that says credentials: true, see: https://medium.com/cameron-nokes/4-common-mistakes-front-end-developers-make-when-using-fetch-1f974f9d1aa1
-      fetch("/api/results", {
+      fetch("/api/results/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json; charset=utf-8",
@@ -116,16 +123,32 @@ class Game extends React.Component {
 
   resetBoard = () => {
     if (this.state.intervalId) return console.log("game in progress");
+    let r,c,m;
+    if (this.state.boardSize === "small") {
+      r = 9
+      c = 9
+      m = 10
+    } else if (this.state.boardSize === "large") {
+      r = 20
+      c = 24
+      m = 100
+    } else {
+      r = 16
+      c = 16
+      m = 40
+    }
+    
     this.setState({
       timeElapsed: 0,
-      rows: 16,
-      columns: 16,
-      mines: 40,
+      rows: r,
+      columns: c,
+      mines: m,
       started: false,
       flagsPlaced: 0,
       intervalId: null,
       gameWon: false,
-      dataSentToServer: false
+      dataSentToServer: false,
+      boardSize: "medium"
     })
     console.log("reset board called and theres no intervalid")
 

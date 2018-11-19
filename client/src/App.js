@@ -7,6 +7,8 @@ import Infobar from "./components/Infobar";
 
 // refactor login and signup user/pass in state to just one of each?
 
+//**IF YOU REVEAL THE LAST SQUARE AND ITS A BOMB BUT YOU ARE AT 0 BOMBS LEFT (by mistakenly flagging wrong square) THE GAME POSTS A WIN AND A LOSS BUT SHOULD JUST BE A LOSS
+
 class App extends Component {
   constructor(props) {
     super(props);
