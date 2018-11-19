@@ -18,15 +18,30 @@ class App extends Component {
       signupUsername: "",
       signupPassword: "",
       loginUsername: "",
-      loginPassword: ""
+      loginPassword: "",
+      appMessage: ""
     }
   }
 
   changePage = (e) => {
     let name = e.target.getAttribute("name");
-    this.setState({
-      page: name
-    });
+    if (this.state.loggedIn) {
+      this.setState({
+        page: name
+      });
+    } else if(name === "login" || name === "signup"){
+      this.setState({
+        page: name
+      });
+    } else {
+      this.setState({
+        appMessage: "Please sign in or sign up"
+      })
+    }
+  }
+
+  printAppState = () => {
+    console.log(this.state);
   }
 
 
@@ -47,9 +62,9 @@ class App extends Component {
       },
       body: JSON.stringify(outData)
     })
-    .then(r => r.json())
-    .then(d => console.log(d))
-    .catch(e => console.log(e));
+      .then(r => r.json())
+      .then(d => console.log(d))
+      .catch(e => console.log(e));
   }
 
   submitLogin = () => {
@@ -64,13 +79,13 @@ class App extends Component {
       },
       body: JSON.stringify(outData)
     })
-    .then(res => {
-      if(res.ok) {
-        return res.json();
-      } else {
-        throw Error(`Request rejected with status ${res.status}`);
-      }
-    })
+      .then(res => {
+        if (res.ok) {
+          return res.json();
+        } else {
+          throw Error(`Request rejected with status ${res.status}`);
+        }
+      })
       .then(d => {
         // user succesfully logs in, what do now?
         console.log(d);
@@ -78,7 +93,8 @@ class App extends Component {
         this.setState({
           loggedIn: true,
           username: d.username,
-          userId: d.id
+          userId: d.id,
+          appMessage: `Hello ${d.username}`
         })
       })
       .catch(e => {
@@ -90,7 +106,16 @@ class App extends Component {
   logOut = () => {
     fetch("/api/logout")
       .then(r => r.json())
-      .then(d => console.log(d))
+      .then(d => {
+        // logout succesful
+        console.log(d);
+        this.setState({
+          loggedIn: false,
+          username: null,
+          userId: null,
+          appMessage: "Goodbye"
+        });
+      })
       .catch(e => console.log(e));
   }
 
@@ -100,7 +125,7 @@ class App extends Component {
       .then(d => console.log(d))
       .catch(e => console.log(e));
   }
-  componentDidUpdate(){
+  componentDidUpdate() {
     console.log(this.state);
   }
 
@@ -121,7 +146,11 @@ class App extends Component {
     }
     return (
       <div>
-        <Infobar pingServer={this.pingServer} />
+        <Infobar
+          pingServer={this.pingServer}
+          printAppState={this.printAppState}
+          msg={this.state.appMessage}
+        />
         <Nav changePage={this.changePage} />
         {page}
       </div>
