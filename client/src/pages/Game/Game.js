@@ -148,7 +148,7 @@ class Game extends React.Component {
       intervalId: null,
       gameWon: false,
       dataSentToServer: false,
-      boardSize: "medium"
+      boardSize: this.state.boardSize
     })
     console.log("reset board called and theres no intervalid")
 

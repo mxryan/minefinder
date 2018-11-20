@@ -81,8 +81,10 @@ app.post("/api/results/", (req, res) => {
       console.log("newWins: ", newWins);
       let newLosses = req.body.gameWon ? d[losses] : d[losses] + 1;
       console.log("newLosses: ", newLosses);
-      let newTime = d[time] + req.body.timeElapsed
+      // LINE BEELOW WRITTEN WHEN V SLEEPY , SO MAKE SURE U TEST IT IN THE MORN YA DOOFUS, ITS NOT COMMITTED
+      let newTime = req.body.gameWon ? d[time] + req.body.timeElapsed : d[time]
       console.log("newTime: ", newTime);
+      // if you lose your best time is being overwritten as null
       let newBestTime = null;
       if (req.body.gameWon) {
         if (d[bestTime]) {
@@ -90,6 +92,8 @@ app.post("/api/results/", (req, res) => {
         } else {
           newBestTime = req.body.timeElapsed;
         }
+      } else {
+        newBestTime=d[bestTime];
       }
       console.log("newBestTime: ", newBestTime);
       db.Users.update({
