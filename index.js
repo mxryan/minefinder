@@ -81,7 +81,6 @@ app.post("/api/results/", (req, res) => {
       console.log("newWins: ", newWins);
       let newLosses = req.body.gameWon ? d[losses] : d[losses] + 1;
       console.log("newLosses: ", newLosses);
-      // LINE BEELOW WRITTEN WHEN V SLEEPY , SO MAKE SURE U TEST IT IN THE MORN YA DOOFUS, ITS NOT COMMITTED
       let newTime = req.body.gameWon ? d[time] + req.body.timeElapsed : d[time]
       console.log("newTime: ", newTime);
       // if you lose your best time is being overwritten as null
@@ -120,6 +119,20 @@ app.post("/api/results/", (req, res) => {
     })
   // res.json({msg: "I got your post request, thanks."})
 });
+
+app.get("/api/stats", (req, res) => {
+  db.Users.findOne({
+    where: {
+      id: req.user.id
+    }
+  }).then(d => {
+    console.log(d);
+    res.json(d);
+  }).catch(e => {
+    console.log(e);
+    res.json(e);
+  })
+})
 
 
 app.get("*", (req, res) => {

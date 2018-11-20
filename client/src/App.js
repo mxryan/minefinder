@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Game from "./pages/Game/";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
+import Stats from "./pages/Stats"
 import Nav from "./components/Nav";
 import Infobar from "./components/Infobar";
 
@@ -31,7 +32,7 @@ class App extends Component {
       this.setState({
         page: name
       });
-    } else if(name === "login" || name === "signup"){
+    } else if (name === "login" || name === "signup") {
       this.setState({
         page: name
       });
@@ -139,6 +140,12 @@ class App extends Component {
         break;
       case "login":
         page = (<Login handleChange={this.handleFormChange} submitSignup={this.submitLogin} />);
+        break;
+      case "game":
+        page = (<Game />);
+        break;
+      case "stats":
+        page = (<Stats loggedIn={this.state.loggedIn} />);
         break;
       default:
         page = (<Game />);
