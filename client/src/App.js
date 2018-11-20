@@ -105,7 +105,7 @@ class App extends Component {
       });
   }
 
-  logOut = () => {
+  logout = () => {
     fetch("/api/logout")
       .then(r => r.json())
       .then(d => {
@@ -134,9 +134,6 @@ class App extends Component {
   render() {
     let page;
     switch (this.state.page) {
-      case "welcome":
-        page = (<div><h1>Welcome!</h1><button onClick={this.logOut}>Logout</button></div>);
-        break;
       case "signup":
         page = (<Signup handleChange={this.handleFormChange} submitSignup={this.submitSignup} />)
         break;
@@ -152,6 +149,7 @@ class App extends Component {
           pingServer={this.pingServer}
           printAppState={this.printAppState}
           msg={this.state.appMessage}
+          logout={this.logout}
         />
         <Nav changePage={this.changePage} />
         {page}
