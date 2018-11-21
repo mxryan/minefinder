@@ -132,6 +132,21 @@ app.get("/api/stats", (req, res) => {
     console.log(e);
     res.json(e);
   })
+});
+
+app.get("/api/leaderboard/best_time/:boardSize", (req, res) => {
+  // what leaderboards to i want?
+  db.Users.findAll().then(users => {
+    console.log(users);
+    res.json(users);
+  }).catch(err => {
+    console.log(err);
+    res.json(err)
+  });
+});
+
+app.get("/api/leaderboard/avg_time/:boardSize", (req, res) => {
+
 })
 
 
@@ -141,7 +156,7 @@ app.get("*", (req, res) => {
 
 const PORT = process.env.PORT || 5000;
 db.sequelize.sync({
-  force: false
+  force: true
 }).then(() => {
   app.listen(PORT, () => {
     console.log("Listening at " + PORT);

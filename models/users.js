@@ -35,6 +35,14 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: true
     },
+    small_win_rate: {
+      type: DataTypes.FLOAT,
+      allowNull: true
+    },
+    small_avg_time: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
     medium_wins: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -53,6 +61,14 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: true
     },
+    medium_win_rate: {
+      type: DataTypes.FLOAT,
+      allowNull: true
+    },
+    medium_avg_time: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
     large_wins: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -70,7 +86,15 @@ module.exports = (sequelize, DataTypes) => {
     large_best_time: {
       type: DataTypes.INTEGER,
       allowNull: true
-    }
+    },
+    large_win_rate: {
+      type: DataTypes.FLOAT,
+      allowNull: true
+    },
+    large_avg_time: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
   });
 
   Users.prototype.validPassword = function (password) {
