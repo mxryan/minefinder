@@ -66,7 +66,9 @@ app.post("/api/results/", (req, res) => {
   const wins = boardSize + "_wins";
   const losses = boardSize + "_losses";
   const time = boardSize + "_time";
-  const bestTime = boardSize + "_best_time"
+  const bestTime = boardSize + "_best_time";
+  const avgTime = boardSize + "_avg_time";
+  const winRate = boardSize + "_win_rate";
 
 
 
@@ -76,14 +78,12 @@ app.post("/api/results/", (req, res) => {
       }
     })
     .then((d) => {
-      console.log(typeof d[wins]);
       let newWins = req.body.gameWon ? d[wins] + 1 : d[wins];
-      console.log("newWins: ", newWins);
       let newLosses = req.body.gameWon ? d[losses] : d[losses] + 1;
-      console.log("newLosses: ", newLosses);
       let newTime = req.body.gameWon ? d[time] + req.body.timeElapsed : d[time]
-      console.log("newTime: ", newTime);
-      // if you lose your best time is being overwritten as null
+      let newAvgTime = newTime / newWins;
+      let newWinRate = newWins / (newWins + newLosses);
+      
       let newBestTime = null;
       if (req.body.gameWon) {
         if (d[bestTime]) {
@@ -92,14 +92,16 @@ app.post("/api/results/", (req, res) => {
           newBestTime = req.body.timeElapsed;
         }
       } else {
-        newBestTime=d[bestTime];
+        newBestTime = d[bestTime];
       }
-      console.log("newBestTime: ", newBestTime);
+
       db.Users.update({
           [wins]: newWins,
           [losses]: newLosses,
           [time]: newTime,
-          [bestTime]: newBestTime
+          [bestTime]: newBestTime,
+          [avgTime]: newAvgTime,
+          [winRate]: newWinRate
         }, {
           where: {
             id: req.user.id

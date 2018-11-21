@@ -40,7 +40,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: true
     },
     small_avg_time: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.FLOAT,
       allowNull: true,
     },
     medium_wins: {
@@ -66,7 +66,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: true
     },
     medium_avg_time: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.FLOAT,
       allowNull: true,
     },
     large_wins: {
@@ -92,7 +92,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: true
     },
     large_avg_time: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.FLOAT,
       allowNull: true,
     },
   });
