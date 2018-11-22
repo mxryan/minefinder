@@ -53,32 +53,61 @@ class Board extends React.Component {
       y: parseInt(coords[0]),
       x: parseInt(coords[1])
     }
-
+    let { x, y } = clickedCoords;
     if (!this.props.gameStarted) {
       this.props.startGame();
       this.setBoard(this.props.rows, this.props.columns, this.props.mines, clickedCoords);
     } else {
+      const copyOfBoardState = this.copyBoardState(this.props.rows, this.props.columns);
+      const copyOfRevealedState = this.copyRevealedState(this.props.rows, this.props.columns);
       if (!this.state.boardRevealedState[clickedCoords.y][clickedCoords.x]) {
-        const copyOfBoardState = this.copyBoardState(this.props.rows, this.props.columns);
-        const copyOfRevealedState = this.copyRevealedState(this.props.rows, this.props.columns);
-        this.revealTile(clickedCoords, copyOfRevealedState, copyOfBoardState, this.props.rows, this.props.columns);
+        this.revealTile(clickedCoords, copyOfRevealedState, copyOfBoardState);
         this.setState({
           boardRevealedState: copyOfRevealedState
         });
-        console.log("About to check for win");
         if (this.checkForWin(copyOfRevealedState)) {
           this.props.userWins();
         }
+      } else if (this.state.boardRevealedState[y][x] === 1 &&
+        this.countNeighboringFlags(clickedCoords, copyOfRevealedState) === copyOfBoardState[y][x]) {
+        console.log("this might be where i would want to call the bonus reveal")
+        for (let i = -1; i < 2; i++) {
+          if (y + i >= this.props.rows || y + i < 0) continue;
+          for (let j = -1; j < 2; j++) {
+            if (x + j >= this.props.columns || x + j < 0) continue;
+            if (copyOfRevealedState[y + i][x + j] === 0) {
+              this.revealTile({
+                y: y + i,
+                x: x + j
+              }, copyOfRevealedState, copyOfBoardState)
+            }
+          }
+        }
+        this.setState({
+          boardRevealedState: copyOfRevealedState
+        })
+        
       }
     }
   }
 
-  revealTile = (coords, copyOfRevealedState, copyOfBoardState, rows, columns) => {
-    console.log("revealTile called");
-    let {
-      y,
-      x
-    } = coords;
+  countNeighboringFlags = (coords, copyOfRevealedState) => {
+    let { x, y } = coords;
+    let flagTally = 0;
+    for (let i = -1; i < 2; i++) {
+      if (y + i >= this.props.rows || y + i < 0) continue;
+      for (let j = -1; j < 2; j++) {
+        if (x + j >= this.props.columns || x + j < 0) continue;
+        if (copyOfRevealedState[y + i][x + j] === -1) flagTally++;
+      }
+    }
+    console.log("counted this many flags: ", flagTally);
+    return flagTally;
+  }
+
+  revealTile = (coords, copyOfRevealedState, copyOfBoardState) => {
+    console.log("reveal tile called at coords: ", coords);
+    let { y, x } = coords;
     if (copyOfBoardState[y][x] === 99) {
       this.props.userLoses();
     }
@@ -88,14 +117,14 @@ class Board extends React.Component {
     if (copyOfBoardState[y][x] === 0) {
 
       for (let i = -1; i < 2; i++) {
-        if (y + i >= rows || y + i < 0) continue;
+        if (y + i >= this.props.rows || y + i < 0) continue;
         for (let j = -1; j < 2; j++) {
-          if (x + j >= columns || x + j < 0) continue;
+          if (x + j >= this.props.columns || x + j < 0) continue;
           if (copyOfRevealedState[y + i][x + j] === 0) {
             this.revealTile({
               y: y + i,
               x: x + j
-            }, copyOfRevealedState, copyOfBoardState, rows, columns)
+            }, copyOfRevealedState, copyOfBoardState)
           }
         }
       }
@@ -130,7 +159,7 @@ class Board extends React.Component {
     this.setState({
       boardRevealedState: copyOfRevealedState
     });
-    
+
   }
 
   copyBoardState = (rows, columns) => {
@@ -286,9 +315,9 @@ class Board extends React.Component {
     });
 
     return (
-     
-        <div id="board" style={boardStyle}> {tiles} </div>
-     
+
+      <div id="board" style={boardStyle}> {tiles} </div>
+
     );
   }
 }
