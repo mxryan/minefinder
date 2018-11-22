@@ -94,7 +94,9 @@ app.post("/api/results/", (req, res) => {
       } else {
         newBestTime = d[bestTime];
       }
-
+      if (isNaN(newAvgTime)) {
+        newAvgTime = null;
+      }
       db.Users.update({
           [wins]: newWins,
           [losses]: newLosses,
