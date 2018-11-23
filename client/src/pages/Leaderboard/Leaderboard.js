@@ -4,7 +4,8 @@ class Leaderboard extends React.Component {
     super(props);
     this.state = {
       boardSize: "small",
-      chosenMetric: "best_time"
+      chosenMetric: "best_time",
+      jsonResponse: null
     }
   }
 
@@ -25,11 +26,40 @@ class Leaderboard extends React.Component {
   callServer = (size, metric) => {
     fetch(`/api/leaderboard/${metric}/${size}/`)
       .then(res => res.json())
-      .then(json => console.log(json))
+      .then(json => {
+        console.log(json);
+        this.setState({
+          jsonResponse: json
+        });
+      })
       .catch(err => console.log(err));
   }
 
+  componentDidMount(){
+    this.callServer(this.state.boardSize, this.state.chosenMetric);
+  }
+  componentDidUpdate() {
+    console.log(this.state);
+  }
   render() {
+    let tableRows;
+    if (this.state.jsonResponse) {
+      tableRows = this.state.jsonResponse.map(record => {
+        console.log(this.state.boardSize + "_" + this.state.chosenMetric)
+        return (
+          <tr>
+            <td>
+              {record.username}
+            </td>
+            <td>
+              {record[this.state.boardSize + "_" + this.state.chosenMetric]}
+            </td>
+          </tr>
+        )
+      })
+    } else {
+      tableRows = (<div>Could not fetch the data.</div>)
+    }
     return (
       <div>
         <h1>Leaderboard</h1>
@@ -42,7 +72,7 @@ class Leaderboard extends React.Component {
         <select onChange={this.switchMetric}>
           <option value="best_time">Best Time</option>
           <option value="avg_time">Average Time</option>
-          <option value="win_rate">Win Ratio</option>
+          <option value="win_rate">Win Rate</option>
         </select>
 
         <p>Chosen board size: {this.state.boardSize}</p>
@@ -50,20 +80,9 @@ class Leaderboard extends React.Component {
         <table>
           <tr>
             <th>User</th>
-            <th>Best Time - Board Size: Small</th>
+            <th>{this.state.chosenMetric} - Board Size: {this.state.boardSize}</th>
           </tr>
-          <tr>
-            <td>turtleBoy1</td>
-            <td>97</td>
-          </tr>
-          <tr>
-            <td>turtleBoy2</td>
-            <td>98</td>
-          </tr>
-          <tr>
-            <td>turtleBoy3</td>
-            <td>103</td>
-          </tr>
+          {tableRows ? tableRows : "Something went wrong"}
         </table>
       </div>
     )
