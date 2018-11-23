@@ -167,7 +167,7 @@ app.get("/api/leaderboard/avg_time/:boardSize", (req, res) => {
 
 app.get("/api/leaderboard/win_rate/:boardSize", (req,res)=>{
   db.Users.findAll({
-    order: [[req.params.boardSize + "_win_rate", "ASC"]],
+    order: [[req.params.boardSize + "_win_rate", "DESC"]],
     attributes: ["id", "username", req.params.boardSize + "_win_rate"]
   }).then(users => {
     console.log(users);

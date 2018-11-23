@@ -79,7 +79,7 @@ class Leaderboard extends React.Component {
         <p>Chosen Metric: {this.state.chosenMetric}</p>
         <table>
           <tr>
-            <th>User</th>
+            <th>User &nbsp; &nbsp; &nbsp;</th>
             <th>{this.state.chosenMetric} - Board Size: {this.state.boardSize}</th>
           </tr>
           {tableRows ? tableRows : "Something went wrong"}
