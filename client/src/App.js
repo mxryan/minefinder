@@ -3,6 +3,7 @@ import Game from "./pages/Game/";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import Stats from "./pages/Stats"
+import Leaderboard from "./pages/Leaderboard";
 import Nav from "./components/Nav";
 import Infobar from "./components/Infobar";
 
@@ -146,6 +147,9 @@ class App extends Component {
         break;
       case "stats":
         page = (<Stats loggedIn={this.state.loggedIn} />);
+        break;
+      case "leaderboard":
+        page =(<Leaderboard />);
         break;
       default:
         page = (<Game />);

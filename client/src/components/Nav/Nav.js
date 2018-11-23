@@ -6,6 +6,7 @@ const Nav = (props) => {
       <button name="signup" onClick={props.changePage}>Signup</button>
       <button name="login" onClick={props.changePage}>login</button>
       <button name="stats" onClick={props.changePage}>Stats</button>
+      <button name="leaderboard" onClick={props.changePage}>leaderboard</button>
     </div>
   )
 }

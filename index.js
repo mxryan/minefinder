@@ -140,7 +140,10 @@ app.get("/api/stats", (req, res) => {
 
 app.get("/api/leaderboard/best_time/:boardSize", (req, res) => {
   // what leaderboards to i want?
-  db.Users.findAll().then(users => {
+  db.Users.findAll({
+    order: [[req.params.boardSize + "_best_time", "ASC"]],
+    attributes: ["id", "username", req.params.boardSize + "_best_time"]
+  }).then(users => {
     console.log(users);
     res.json(users);
   }).catch(err => {
@@ -150,8 +153,30 @@ app.get("/api/leaderboard/best_time/:boardSize", (req, res) => {
 });
 
 app.get("/api/leaderboard/avg_time/:boardSize", (req, res) => {
+  db.Users.findAll({
+    order: [[req.params.boardSize + "_avg_time", "ASC"]],
+    attributes: ["id", "username", req.params.boardSize + "_avg_time"]
+  }).then(users => {
+    console.log(users);
+    res.json(users);
+  }).catch(err => {
+    console.log(err);
+    res.json(err)
+  });
+});
 
-})
+app.get("/api/leaderboard/win_rate/:boardSize", (req,res)=>{
+  db.Users.findAll({
+    order: [[req.params.boardSize + "_win_rate", "ASC"]],
+    attributes: ["id", "username", req.params.boardSize + "_win_rate"]
+  }).then(users => {
+    console.log(users);
+    res.json(users);
+  }).catch(err => {
+    console.log(err);
+    res.json(err)
+  });
+});
 
 
 app.get("*", (req, res) => {
