@@ -152,6 +152,7 @@ class App extends Component {
       <div>
         <Infobar
           msg={this.state.appMessage}
+          username={this.state.username}
           logout={this.logout}
         />
         <Nav changePage={this.changePage} />

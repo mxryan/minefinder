@@ -64,12 +64,14 @@ class Leaderboard extends React.Component {
       <div>
         <h1>Leaderboard</h1>
         <p>These are the leaderboards</p>
-        <select onChange={this.switchBoardSize}>
+        <label htmlFor="boardSizeSelector">Board size:</label>
+        <select onChange={this.switchBoardSize} id="boardSizeSelector">
           <option value="small">small</option>
           <option value="medium">medium</option>
           <option value="large">large</option>
         </select>
-        <select onChange={this.switchMetric}>
+        <label htmlFor="metricSelector">Metric: </label>
+        <select onChange={this.switchMetric} id="metricSelector">
           <option value="best_time">Best Time</option>
           <option value="avg_time">Average Time</option>
           <option value="win_rate">Win Rate</option>

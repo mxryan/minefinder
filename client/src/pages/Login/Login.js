@@ -8,7 +8,7 @@ const Login = (props) => {
       <input type="text" onChange={props.handleChange} id="loginUsername"></input>
       <label htmlFor="loginPassword">Password</label>
       <input type="password" onChange={props.handleChange} id="loginPassword"></input>
-      <button onClick={props.submitSignup}></button>
+      <button onClick={props.submitSignup}>Log In</button>
     </div>
   )
 }
