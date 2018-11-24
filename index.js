@@ -169,6 +169,11 @@ app.get("/api/stats", (req, res) => {
 app.get("/api/leaderboard/best_time/:boardSize", (req, res) => {
   // what leaderboards to i want?
   db.Users.findAll({
+    where: {
+      [req.params.boardSize + "_best_time"]: {
+        $not: null
+      }
+    },
     order: [[req.params.boardSize + "_best_time", "ASC"]],
     attributes: ["id", "username", req.params.boardSize + "_best_time"]
   }).then(users => {
@@ -182,6 +187,11 @@ app.get("/api/leaderboard/best_time/:boardSize", (req, res) => {
 
 app.get("/api/leaderboard/avg_time/:boardSize", (req, res) => {
   db.Users.findAll({
+    where: {
+      [req.params.boardSize + "_best_time"]: {
+        $not: null
+      }
+    },
     order: [[req.params.boardSize + "_avg_time", "ASC"]],
     attributes: ["id", "username", req.params.boardSize + "_avg_time"]
   }).then(users => {
@@ -195,6 +205,11 @@ app.get("/api/leaderboard/avg_time/:boardSize", (req, res) => {
 
 app.get("/api/leaderboard/win_rate/:boardSize", (req,res)=>{
   db.Users.findAll({
+    where: {
+      [req.params.boardSize + "_best_time"]: {
+        $not: null
+      }
+    },
     order: [[req.params.boardSize + "_win_rate", "DESC"]],
     attributes: ["id", "username", req.params.boardSize + "_win_rate"]
   }).then(users => {
