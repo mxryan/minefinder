@@ -3,7 +3,7 @@ const Login = (props) => {
   return (
     <div>
       <h1>Login</h1>
-      <p>Hey man this is the login page, which you will visit to login after you sign up. The should also be something on the nav bar that lets you know if you are signed in. I'm also gonna put a button that sends a json response based on whether or not you are logged in.</p>
+      <p>After you login you can play a game, check your stats, or view the leaderboard.</p>
       <label htmlFor="loginUsername">Username</label>
       <input type="text" onChange={props.handleChange} id="loginUsername"></input>
       <label htmlFor="loginPassword">Password</label>

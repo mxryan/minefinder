@@ -44,10 +44,6 @@ class App extends Component {
     }
   }
 
-  printAppState = () => {
-    console.log(this.state);
-  }
-
 
   handleFormChange = (e) => {
     let name = e.target.id;
@@ -66,9 +62,13 @@ class App extends Component {
       },
       body: JSON.stringify(outData)
     })
-      .then(r => r.json())
-      .then(d => console.log(d))
-      .catch(e => console.log(e));
+      .then(res => res.json())
+      .then(json => {
+        this.setState({
+          appMessage: `Hi ${json.username}. We made an account for you. Log in to get started!`
+        })
+      })
+      .catch(err => console.log(err));
   }
 
   submitLogin = () => {
@@ -123,12 +123,6 @@ class App extends Component {
       .catch(e => console.log(e));
   }
 
-  pingServer = () => {
-    fetch("/api/ping")
-      .then(res => res.json())
-      .then(d => console.log(d))
-      .catch(e => console.log(e));
-  }
   componentDidUpdate() {
     console.log(this.state);
   }
@@ -157,8 +151,6 @@ class App extends Component {
     return (
       <div>
         <Infobar
-          pingServer={this.pingServer}
-          printAppState={this.printAppState}
           msg={this.state.appMessage}
           logout={this.logout}
         />
