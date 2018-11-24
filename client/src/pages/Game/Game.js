@@ -2,6 +2,7 @@ import React from "react";
 import Display from "../../components/Display";
 import Board from "../../components/Board";
 import ControlPanel from "../../components/ControlPanel";
+import Instructions from "../../components/Instructions";
 
 // if you win, hit a bomb, or navigate away from page, send game results to the server
 // REMOVE EXTRA CONSOLE LOGS
@@ -123,7 +124,7 @@ class Game extends React.Component {
 
   resetBoard = () => {
     if (this.state.intervalId) return console.log("game in progress");
-    let r,c,m;
+    let r, c, m;
     if (this.state.boardSize === "small") {
       r = 9
       c = 9
@@ -137,7 +138,7 @@ class Game extends React.Component {
       c = 16
       m = 40
     }
-    
+
     this.setState({
       timeElapsed: 0,
       rows: r,
@@ -155,33 +156,51 @@ class Game extends React.Component {
   }
 
   render() {
-    return (
-      <div className="container">
-        <Display
-          flagsPlaced={this.state.flagsPlaced}
-          mines={this.state.mines}
-          timeElapsed={this.state.timeElapsed}
-        />
-        <ControlPanel
-          changeBoardSize={this.changeBoardSize}
-          resetBoard={this.resetBoard}
-          stopGame={this.stopGame}
-          intervalId={this.state.intervalId}
-        />
+    const containerStyle = {
+      display: "flex",
+      flexWrap: "wrap",
+      justifyContent: "space-evenly"
+    }
 
-        <Board
-          rows={this.state.rows}
-          columns={this.state.columns}
-          mines={this.state.mines}
-          gameStarted={this.state.started}
-          intervalId={this.state.intervalId}
-          startGame={this.startGame}
-          incrementFlagsPlaced={this.incrementFlagsPlaced}
-          decrementFlagsPlaced={this.decrementFlagsPlaced}
-          userWins={this.userWins}
-          userLoses={this.userLoses}
-          flagsPlaced={this.state.flagsPlaced}
-        />
+    const leftPanelStyle = {
+      display: "inline-block"
+    }
+    const rightPanelStyle = {
+      display: "inline-block"
+    }
+    return (
+      <div style={containerStyle}>
+        <div id="left-panel" style={leftPanelStyle}>
+          <Display
+            flagsPlaced={this.state.flagsPlaced}
+            mines={this.state.mines}
+            timeElapsed={this.state.timeElapsed}
+          />
+          <ControlPanel
+            changeBoardSize={this.changeBoardSize}
+            resetBoard={this.resetBoard}
+            stopGame={this.stopGame}
+            intervalId={this.state.intervalId}
+          />
+
+          <Board
+            rows={this.state.rows}
+            columns={this.state.columns}
+            mines={this.state.mines}
+            gameStarted={this.state.started}
+            intervalId={this.state.intervalId}
+            startGame={this.startGame}
+            incrementFlagsPlaced={this.incrementFlagsPlaced}
+            decrementFlagsPlaced={this.decrementFlagsPlaced}
+            userWins={this.userWins}
+            userLoses={this.userLoses}
+            flagsPlaced={this.state.flagsPlaced}
+          />
+        </div>
+        <div id="right-panel" style={rightPanelStyle}>
+          <Instructions />
+        </div>
+
 
       </div>
     );
