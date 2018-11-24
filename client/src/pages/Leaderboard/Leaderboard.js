@@ -58,7 +58,7 @@ class Leaderboard extends React.Component {
         )
       })
     } else {
-      tableRows = (<div>Could not fetch the data.</div>)
+      tableRows = (<div>Could not fetch the data. Try refreshing the browser.</div>)
     }
     return (
       <div>
