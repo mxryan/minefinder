@@ -64,9 +64,14 @@ class App extends Component {
     })
       .then(res => res.json())
       .then(json => {
+        if (json.username) {
         this.setState({
           appMessage: `Hi ${json.username}. We made an account for you. Log in to get started!`
-        })
+        });} else {
+          this.setState({
+            appMessage: json.msg
+          })
+        }
       })
       .catch(err => console.log(err));
   }

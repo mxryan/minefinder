@@ -24,12 +24,40 @@ app.use(passport.session());
 
 app.post("/api/signup", (req, res) => {
   console.log(req.body);
-  db.Users.create(req.body).then(d => {
-    res.json(d)
+  db.Users.findOne({
+    where: {
+      username: req.body.username
+    }
+  }).then((d) => {
+    if(d) {
+      res.json({msg: "Username already exists"})
+    } else {
+      db.Users.create(req.body).then(d => {
+        res.json(d)
+      }).catch(e => {
+        console.log(e);
+        res.json(e);
+      });
+    }
+  });
+})
+
+
+app.post("/test/findCreate", (req,res) => {
+  db.Users.findOne({
+    where: {
+      username: req.body.username
+    }
+  }).then(d => {
+    console.log(d);
+    if (d) {
+      console.log("FOUND SOMETING")
+    }
+    res.json(d);
   }).catch(e => {
     console.log(e);
-    res.json(e);
-  });
+    res.json(d);
+  })
 })
 
 app.post("/api/login", passport.authenticate("local"), (req, res) => {
