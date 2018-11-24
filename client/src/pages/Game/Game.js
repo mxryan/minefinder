@@ -48,7 +48,7 @@ class Game extends React.Component {
       this.setState({
         rows: 20,
         columns: 24,
-        mines: 100,
+        mines: 85,
         boardSize: chosenSize
       });
     }
@@ -132,7 +132,7 @@ class Game extends React.Component {
     } else if (this.state.boardSize === "large") {
       r = 20
       c = 24
-      m = 100
+      m = 85
     } else {
       r = 16
       c = 16
