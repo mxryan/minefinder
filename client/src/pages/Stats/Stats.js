@@ -1,4 +1,24 @@
 import React from "react";
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
+
+const styles = theme => ({
+  root: {
+    width: '100%',
+    marginTop: theme.spacing.unit * 3,
+    overflowX: 'auto',
+  },
+  table: {
+    minWidth: 700,
+  },
+});
+
 class Stats extends React.Component {
   constructor(props) {
     super(props);
@@ -17,6 +37,7 @@ class Stats extends React.Component {
       largeBestTime: null,
     }
   }
+
 
   grabDataFromServer = () => {
     fetch("/api/stats").then(res => {
@@ -48,44 +69,59 @@ class Stats extends React.Component {
   }
 
   render () {
+    
     return (
-      <div>
-        <h1>
-          Hello I am the Stats page
-        </h1>
-        <table>
-          <tr>
-            <th>Board Size &nbsp;&nbsp;&nbsp;</th>
-            <th>Wins&nbsp;&nbsp;&nbsp;</th>
-            <th>Losses&nbsp;&nbsp;&nbsp;</th>
-            <th>Avg Time of a Win&nbsp;&nbsp;&nbsp;</th>
-            <th>Best Time</th>
-          </tr>
-          <tr>
-            <th>Small</th>
-            <td>{this.state.smallWins}</td>
-            <td>{this.state.smallLosses}</td>
-            <td>{this.state.smallTime / this.state.smallWins}</td>
-            <td>{this.state.smallBestTime}</td>
-          </tr>
-          <tr>
-            <th>medium</th>
-            <td>{this.state.mediumWins}</td>
-            <td>{this.state.mediumLosses}</td>
-            <td>{this.state.mediumTime / this.state.mediumWins}</td>
-            <td>{this.state.mediumBestTime}</td>
-          </tr>
-          <tr>
-            <th>large</th>
-            <td>{this.state.largeWins}</td>
-            <td>{this.state.largeLosses}</td>
-            <td>{this.state.largeTime / this.state.largeWins}</td>
-            <td>{this.state.largeBestTime}</td>
-          </tr>
-        </table>
-      </div>
+      <Paper className={this.props.classes.root}>
+      <Table className={this.props.classes.table}>
+        <TableHead>
+          <TableRow>
+            <TableCell>Board Size</TableCell>
+            <TableCell numeric>Wins</TableCell>
+            <TableCell numeric>Losses</TableCell>
+            <TableCell numeric>Average Time</TableCell>
+            <TableCell numeric>Best Time</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          
+              <TableRow>
+                <TableCell component="th" scope="row">
+                  Small
+                </TableCell>
+                <TableCell numeric>{this.state.smallWins}</TableCell>
+                <TableCell numeric>{this.state.smallLosses}</TableCell>
+                <TableCell numeric>{this.state.smallTime / this.state.smallWins}</TableCell>
+                <TableCell numeric>{this.state.smallBestTime}</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell component="th" scope="row">
+                  Medium
+                </TableCell>
+                <TableCell numeric>{this.state.mediumWins}</TableCell>
+                <TableCell numeric>{this.state.mediumLosses}</TableCell>
+                <TableCell numeric>{this.state.mediumTime / this.state.mediumWins}</TableCell>
+                <TableCell numeric>{this.state.mediumBestTime}</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell component="th" scope="row">
+                  Large
+                </TableCell>
+                <TableCell numeric>{this.state.largeWins}</TableCell>
+                <TableCell numeric>{this.state.largeLosses}</TableCell>
+                <TableCell numeric>{this.state.largeTime / this.state.largeWins}</TableCell>
+                <TableCell numeric>{this.state.largeBestTime}</TableCell>
+              </TableRow>
+         
+        </TableBody>
+      </Table>
+    </Paper>
     )
   }
 }
 
-export default Stats;
+Stats.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(Stats);
+
