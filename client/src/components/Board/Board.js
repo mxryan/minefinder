@@ -70,7 +70,6 @@ class Board extends React.Component {
         }
       } else if (this.state.boardRevealedState[y][x] === 1 &&
         this.countNeighboringFlags(clickedCoords, copyOfRevealedState) === copyOfBoardState[y][x]) {
-        console.log("this might be where i would want to call the bonus reveal")
         for (let i = -1; i < 2; i++) {
           if (y + i >= this.props.rows || y + i < 0) continue;
           for (let j = -1; j < 2; j++) {
@@ -101,12 +100,10 @@ class Board extends React.Component {
         if (copyOfRevealedState[y + i][x + j] === -1) flagTally++;
       }
     }
-    console.log("counted this many flags: ", flagTally);
     return flagTally;
   }
 
   revealTile = (coords, copyOfRevealedState, copyOfBoardState) => {
-    console.log("reveal tile called at coords: ", coords);
     let { y, x } = coords;
     if (copyOfBoardState[y][x] === 99) {
       this.props.userLoses();
@@ -235,7 +232,7 @@ class Board extends React.Component {
               boardStateCopy[y][x] = 99;
               minesToPlace--;
               if (!minesToPlace) {
-                return console.log("completed mine placement")
+                return true;
               }
             }
           }

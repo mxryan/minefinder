@@ -97,8 +97,6 @@ class App extends Component {
       })
       .then(d => {
         // user succesfully logs in, what do now?
-        console.log(d);
-        console.log(`welcome ${d.username}`)
         this.setState({
           loggedIn: true,
           username: d.username,
@@ -117,7 +115,6 @@ class App extends Component {
       .then(r => r.json())
       .then(d => {
         // logout succesful
-        console.log(d);
         this.setState({
           loggedIn: false,
           username: null,
@@ -126,10 +123,6 @@ class App extends Component {
         });
       })
       .catch(e => console.log(e));
-  }
-
-  componentDidUpdate() {
-    console.log(this.state);
   }
 
   render() {
