@@ -1,4 +1,5 @@
 import React from "react";
+import LeaderBoardTable from "../../components/LeaderBoardTable";
 class Leaderboard extends React.Component {
   constructor(props) {
     super(props);
@@ -39,23 +40,23 @@ class Leaderboard extends React.Component {
   }
  
   render() {
-    let tableRows;
-    if (this.state.jsonResponse) {
-      tableRows = this.state.jsonResponse.map(record => {
-        return (
-          <tr>
-            <td>
-              {record.username}
-            </td>
-            <td>
-              {record[this.state.boardSize + "_" + this.state.chosenMetric]}
-            </td>
-          </tr>
-        )
-      })
-    } else {
-      tableRows = (<div>Could not fetch the data. Try refreshing the browser.</div>)
-    }
+    // let tableRows;
+    // if (this.state.jsonResponse) {
+    //   tableRows = this.state.jsonResponse.map(record => {
+    //     return (
+    //       <tr>
+    //         <td>
+    //           {record.username}
+    //         </td>
+    //         <td>
+    //           {record[this.state.boardSize + "_" + this.state.chosenMetric]}
+    //         </td>
+    //       </tr>
+    //     )
+    //   })
+    // } else {
+    //   tableRows = (<div>Could not fetch the data. Try refreshing the browser.</div>)
+    // }
     return (
       <div>
         <h1>Leaderboard</h1>
@@ -75,16 +76,17 @@ class Leaderboard extends React.Component {
 
         <p>Chosen board size: {this.state.boardSize}</p>
         <p>Chosen Metric: {this.state.chosenMetric}</p>
-        <table>
-          <tr>
-            <th>User &nbsp; &nbsp; &nbsp;</th>
-            <th>{this.state.chosenMetric} - Board Size: {this.state.boardSize}</th>
-          </tr>
-          {tableRows ? tableRows : "Something went wrong"}
-        </table>
+        <LeaderBoardTable 
+          boardSize={this.state.boardSize}
+          chosenMetric={this.state.chosenMetric}
+          userData={this.state.jsonResponse}
+        />
+        
       </div>
     )
   }
 }
+
+
 
 export default Leaderboard;
