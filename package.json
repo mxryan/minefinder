@@ -11,6 +11,8 @@
     "heroku-postbuild": "cd client && yarn && yarn run build"
   },
   "dependencies": {
+    "@material-ui/core": "^3.5.1",
+    "@material-ui/icons": "^3.0.1",
     "bcrypt-nodejs": "^0.0.3",
     "express": "^4.16.4",
     "express-session": "^1.15.6",
