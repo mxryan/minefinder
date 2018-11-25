@@ -28,7 +28,7 @@ class App extends Component {
   }
 
   changePage = (e) => {
-    let name = e.target.getAttribute("name");
+    let name = e.currentTarget.getAttribute("name");
     if (this.state.loggedIn) {
       this.setState({
         page: name

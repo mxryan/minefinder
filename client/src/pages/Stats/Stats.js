@@ -19,11 +19,9 @@ class Stats extends React.Component {
   }
 
   grabDataFromServer = () => {
-    console.log("grabDataFromServer called");
     fetch("/api/stats").then(res => {
       return res.json();
     }).then(json => {
-      console.log(json);
       this.setState({
       smallWins: json.small_wins,
       smallLosses: json.small_losses,

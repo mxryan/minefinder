@@ -27,7 +27,6 @@ class Leaderboard extends React.Component {
     fetch(`/api/leaderboard/${metric}/${size}/`)
       .then(res => res.json())
       .then(json => {
-        console.log(json);
         this.setState({
           jsonResponse: json
         });
@@ -38,14 +37,11 @@ class Leaderboard extends React.Component {
   componentDidMount(){
     this.callServer(this.state.boardSize, this.state.chosenMetric);
   }
-  componentDidUpdate() {
-    console.log(this.state);
-  }
+ 
   render() {
     let tableRows;
     if (this.state.jsonResponse) {
       tableRows = this.state.jsonResponse.map(record => {
-        console.log(this.state.boardSize + "_" + this.state.chosenMetric)
         return (
           <tr>
             <td>
