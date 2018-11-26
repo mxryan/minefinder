@@ -23,7 +23,7 @@ class App extends Component {
       signupPassword: "",
       loginUsername: "",
       loginPassword: "",
-      appMessage: ""
+      appMessage: "",
     }
   }
 
@@ -129,10 +129,24 @@ class App extends Component {
     let page;
     switch (this.state.page) {
       case "signup":
-        page = (<Signup handleChange={this.handleFormChange} submitSignup={this.submitSignup} />)
+        page = (
+          <Signup
+            handleChange={this.handleFormChange}
+            submitSignup={this.submitSignup}
+            signupUsername={this.state.signupUsername}
+            signupPassword={this.state.signupPassword}
+          />
+        )
         break;
       case "login":
-        page = (<Login handleChange={this.handleFormChange} submitSignup={this.submitLogin} />);
+        page = (
+          <Login
+            handleChange={this.handleFormChange}
+            submitLogin={this.submitLogin}
+            loginUsername={this.state.loginUsername}
+            loginPassword={this.state.loginPassword}
+          />
+        );
         break;
       case "game":
         page = (<Game />);
