@@ -11,11 +11,11 @@ import Paper from '@material-ui/core/Paper';
 const styles = theme => ({
   root: {
     width: '100%',
-    marginTop: theme.spacing.unit * 3,
+    
     overflowX: 'auto',
   },
   table: {
-    minWidth: 700,
+    minWidth: 300,
   },
 });
 
@@ -24,9 +24,9 @@ function SimpleTable(props) {
   const { classes } = props;
   let metric;
   if (props.chosenMetric === "best_time") {
-    metric = "Best Time";
+    metric = "Best Time (s)";
   } else if (props.chosenMetric === "avg_time") {
-    metric = "Average Time";
+    metric = "Average Time (s)";
   } else {
     metric = "Win Rate";
   }
@@ -39,7 +39,7 @@ function SimpleTable(props) {
           <TableCell component="th" scope="row">
             {record.username}
           </TableCell>
-          <TableCell numeric>
+          <TableCell numeric >
             {record[props.boardSize + "_" + props.chosenMetric]}
           </TableCell>
 
@@ -48,10 +48,10 @@ function SimpleTable(props) {
     })
   } else {
     rowHolder = (<TableRow>
-      <TableCell component="th" scope="row">
+      <TableCell component="th" scope="row" >
             Could not fetch
           </TableCell>
-          <TableCell numeric>
+          <TableCell numeric >
             Could not fetch
           </TableCell>
     </TableRow>)
@@ -61,8 +61,8 @@ function SimpleTable(props) {
       <Table className={classes.table}>
         <TableHead>
           <TableRow>
-            <TableCell>Username</TableCell>
-            <TableCell numeric>{metric}</TableCell>
+            <TableCell >Username</TableCell>
+            <TableCell numeric >{metric}</TableCell>
 
           </TableRow>
         </TableHead>
