@@ -43,22 +43,22 @@ app.post("/api/signup", (req, res) => {
 })
 
 
-app.post("/test/findCreate", (req,res) => {
-  db.Users.findOne({
-    where: {
-      username: req.body.username
-    }
-  }).then(d => {
-    console.log(d);
-    if (d) {
-      console.log("FOUND SOMETING")
-    }
-    res.json(d);
-  }).catch(e => {
-    console.log(e);
-    res.json(d);
-  })
-})
+// app.post("/test/findCreate", (req,res) => {
+//   db.Users.findOne({
+//     where: {
+//       username: req.body.username
+//     }
+//   }).then(d => {
+//     console.log(d);
+//     if (d) {
+//       console.log("FOUND SOMETING")
+//     }
+//     res.json(d);
+//   }).catch(e => {
+//     console.log(e);
+//     res.json(d);
+//   })
+// })
 
 app.post("/api/login", passport.authenticate("local"), (req, res) => {
   console.log(req.user);
@@ -73,15 +73,15 @@ app.get("/api/logout", (req, res) => {
   });
 })
 
-app.get("/api/ping", (req, res) => {
-  console.log(req);
-  const serverResponse = {
-    msg: "Hey, I'm listening",
-    user: req.user ? true : false,
-  }
-  res.json(serverResponse);
+// app.get("/api/ping", (req, res) => {
+//   console.log(req);
+//   const serverResponse = {
+//     msg: "Hey, I'm listening",
+//     user: req.user ? true : false,
+//   }
+//   res.json(serverResponse);
 
-});
+// });
 
 app.post("/api/results/", (req, res) => {
   // if the game time is greater than 1000 seconds, count it as a loss?

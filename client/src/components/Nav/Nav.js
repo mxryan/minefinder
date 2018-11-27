@@ -26,8 +26,8 @@ function Nav(props) {
         <Toolbar>
 
           <Button name="game" onClick={props.changePage}>Game</Button>
-          <Button name="signup" onClick={props.changePage}>Signup</Button>
-          <Button name="login" onClick={props.changePage}>login</Button>
+          <Button name="signup" onClick={props.changePage}>Sign up</Button>
+          <Button name="login" onClick={props.changePage}>Log in</Button>
           <Button name="stats" onClick={props.changePage}>Stats</Button>
           <Button name="leaderboard" onClick={props.changePage}>leaderboard</Button>
 

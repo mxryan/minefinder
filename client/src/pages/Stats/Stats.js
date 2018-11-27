@@ -74,9 +74,9 @@ class Stats extends React.Component {
 
     return (
       <div className={this.props.classes.root}>
-        <Typography variant="h4" style={{marginBottom:20}}>STATS</Typography>
+        <Typography variant="h4" style={{ marginBottom: 20 }}>STATS</Typography>
         <Paper className={this.props.classes.root}>
-        
+
           <Table className={this.props.classes.table}>
             <TableHead>
               <TableRow>
@@ -88,35 +88,59 @@ class Stats extends React.Component {
               </TableRow>
             </TableHead>
             <TableBody>
-  
+
               <TableRow>
                 <TableCell component="th" scope="row">
                   Small
                   </TableCell>
-                <TableCell numeric>{this.state.smallWins}</TableCell>
-                <TableCell numeric>{this.state.smallLosses}</TableCell>
-                <TableCell numeric>{this.state.smallTime / this.state.smallWins}</TableCell>
-                <TableCell numeric>{this.state.smallBestTime}</TableCell>
+                <TableCell numeric>
+                  {this.state.smallWins}
+                </TableCell>
+                <TableCell numeric>
+                  {this.state.smallLosses}
+                </TableCell>
+                <TableCell numeric>
+                  {this.state.smallWins ? this.state.smallTime / this.state.smallWins : "-"}
+                </TableCell>
+                <TableCell numeric>
+                  {this.state.smallBestTime ? this.state.smallBestTime : "-"}
+                </TableCell>
               </TableRow>
               <TableRow>
                 <TableCell component="th" scope="row">
                   Medium
                   </TableCell>
-                <TableCell numeric>{this.state.mediumWins}</TableCell>
-                <TableCell numeric>{this.state.mediumLosses}</TableCell>
-                <TableCell numeric>{this.state.mediumTime / this.state.mediumWins}</TableCell>
-                <TableCell numeric>{this.state.mediumBestTime}</TableCell>
+                <TableCell numeric>
+                  {this.state.mediumWins}
+                </TableCell>
+                <TableCell numeric>
+                  {this.state.mediumLosses}
+                </TableCell>
+                <TableCell numeric>
+                  {this.state.mediumWins ? this.state.mediumTime / this.state.mediumWins : "-"}
+                </TableCell>
+                <TableCell numeric>
+                  {this.state.mediumBestTime ? this.state.mediumBestTime: "-"}
+                </TableCell>
               </TableRow>
               <TableRow>
                 <TableCell component="th" scope="row">
                   Large
                   </TableCell>
-                <TableCell numeric>{this.state.largeWins}</TableCell>
-                <TableCell numeric>{this.state.largeLosses}</TableCell>
-                <TableCell numeric>{this.state.largeTime / this.state.largeWins}</TableCell>
-                <TableCell numeric>{this.state.largeBestTime}</TableCell>
+                <TableCell numeric>
+                  {this.state.largeWins}
+                </TableCell>
+                <TableCell numeric>
+                  {this.state.largeLosses}
+                </TableCell>
+                <TableCell numeric>
+                  {this.state.largeWins ? this.state.largeTime / this.state.largeWins : "-"}
+                </TableCell>
+                <TableCell numeric>
+                  {this.state.largeBestTime ? this.state.largeBestTime : "-"}
+                </TableCell>
               </TableRow>
-  
+
             </TableBody>
           </Table>
         </Paper>

@@ -39,8 +39,8 @@ class App extends Component {
       });
     } else {
       this.setState({
-        appMessage: "Please sign in or sign up"
-      })
+        appMessage: "Please log in or sign up"
+      });
     }
   }
 
@@ -66,7 +66,12 @@ class App extends Component {
       .then(json => {
         if (json.username) {
         this.setState({
-          appMessage: `Hi ${json.username}. We made an account for you. Log in to get started!`
+          appMessage: `Hi ${json.username}. We made an account for you. Log in to get started!`,
+          page: "login",
+          loginUsername: json.username,
+          loginPassword: "",
+          signupUsername: "",
+          signupPassword: ""
         });} else {
           this.setState({
             appMessage: json.msg
@@ -101,7 +106,10 @@ class App extends Component {
           loggedIn: true,
           username: d.username,
           userId: d.id,
-          appMessage: `Hello ${d.username}`
+          appMessage: `Hello ${d.username}`,
+          page: "game",
+          loginUsername: "",
+          loginPassword: ""
         })
       })
       .catch(e => {

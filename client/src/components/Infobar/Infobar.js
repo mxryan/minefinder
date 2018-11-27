@@ -28,7 +28,7 @@ function Infobar(props) {
           <Typography variant="h6" color="inherit" className={classes.grow}>
           Current User: {props.username}
           </Typography>
-          <Typography variant="p" color="inherit" className={classes.grow}>
+          <Typography variant="h6" color="inherit" className={classes.grow}>
           {props.msg}
           </Typography>
           <Button color="inherit" onClick={props.logout}>Sign Out</Button>

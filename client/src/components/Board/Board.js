@@ -272,6 +272,11 @@ class Board extends React.Component {
     }
   }
 
+  preventRightClickMenu = (e) => {
+    e.preventDefault();
+    return false;
+  }
+
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.rows !== this.props.rows) {
       this.setState({
@@ -313,7 +318,7 @@ class Board extends React.Component {
 
     return (
 
-      <div id="board" style={boardStyle}> {tiles} </div>
+      <div id="board" style={boardStyle} onContextMenu={this.preventRightClickMenu}> {tiles} </div>
 
     );
   }
