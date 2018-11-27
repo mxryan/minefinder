@@ -8,7 +8,7 @@ const Instructions = () => {
         <li>The number in the tile indicates the number of bombs located in adjacent tiles</li>
         <li>Right click to mark the location of the bombs</li>
         <li>You win when you have revealed all the safe tiles and have flagged all the bombs</li>
-        <li>**KNOWN BUG: Sometimes you will win but the win function wont trigger. You can unflag and then reflag a tile to trigger it**</li>
+        
       </ul>
       <h4>Some more tips:</h4>
       <ul>
