@@ -73,14 +73,18 @@ class Game extends React.Component {
   }
 
   postGameState = (gameWon) => {
-    if (!this.state.dataSentToServer) {
+    if (!this.props.loggedIn) {
+      this.props.setMsg("Game complete. Sign in to track your stats and appear on the leaderboard!");
+    }
+    
+    if (!this.state.dataSentToServer && this.props.loggedIn) {
       let outData = {
         gameStarted: this.state.started,
         timeElapsed: this.state.timeElapsed,
         gameWon: gameWon,
         boardSize: this.state.boardSize
       }
-      // may need an object that says credentials: true, see: https://medium.com/cameron-nokes/4-common-mistakes-front-end-developers-make-when-using-fetch-1f974f9d1aa1
+
       fetch("/api/results/", {
         method: "POST",
         headers: {
@@ -150,7 +154,8 @@ class Game extends React.Component {
       gameWon: false,
       dataSentToServer: false,
       boardSize: this.state.boardSize
-    })
+    });
+    this.props.setMsg("");
     console.log("reset board called and theres no intervalid")
 
   }

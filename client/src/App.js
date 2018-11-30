@@ -18,7 +18,7 @@ class App extends Component {
       loggedIn: false,
       username: null,
       userId: null,
-      page: "login",
+      page: "game",
       signupUsername: "",
       signupPassword: "",
       loginUsername: "",
@@ -29,17 +29,13 @@ class App extends Component {
 
   changePage = (e) => {
     let name = e.currentTarget.getAttribute("name");
-    if (this.state.loggedIn) {
-      this.setState({
-        page: name
-      });
-    } else if (name === "login" || name === "signup") {
-      this.setState({
-        page: name
-      });
+    let loggedIn = this.state.loggedIn;
+    if (name === "stats" && !loggedIn) {
+      this.setMsg("Please log in or sign up to track stats!");
     } else {
       this.setState({
-        appMessage: "Please log in or sign up"
+        page: name,
+        appMessage: ""
       });
     }
   }
@@ -48,6 +44,12 @@ class App extends Component {
   handleFormChange = (e) => {
     let name = e.target.id;
     this.setState({ [name]: e.target.value });
+  }
+
+  setMsg = (msg) => {
+    this.setState({
+      appMessage: msg
+    });
   }
 
   submitSignup = () => {
@@ -157,7 +159,12 @@ class App extends Component {
         );
         break;
       case "game":
-        page = (<Game />);
+        page = (
+          <Game
+            loggedIn={this.state.loggedIn}
+            setMsg={this.setMsg}
+          />
+        );
         break;
       case "stats":
         page = (<Stats loggedIn={this.state.loggedIn} />);
