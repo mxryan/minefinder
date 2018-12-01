@@ -28,8 +28,9 @@ class Game extends React.Component {
   }
 
   changeBoardSize = (e) => {
-    if (this.state.intervalId) return console.log();
-    let chosenSize = e.target.getAttribute("name");
+    if (this.state.intervalId) return false;
+    let chosenSize = e.currentTarget.getAttribute("name");
+    console.log(chosenSize);
     if (chosenSize === "small") {
       this.setState({
         rows: 9,
@@ -180,12 +181,15 @@ class Game extends React.Component {
             flagsPlaced={this.state.flagsPlaced}
             mines={this.state.mines}
             timeElapsed={this.state.timeElapsed}
+            boardSize={this.state.boardSize}
           />
           <ControlPanel
             changeBoardSize={this.changeBoardSize}
             resetBoard={this.resetBoard}
             stopGame={this.stopGame}
             intervalId={this.state.intervalId}
+            boardSize={this.state.boardSize}
+            gameStarted={this.state.started}
           />
 
           <Board
