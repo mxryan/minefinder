@@ -1,14 +1,6 @@
 import React from "react";
 import Tile from "../Tile";
 
-//todo: remove rows and columns as arguments and just call this.props.rows/columns in function body
-
-//colors : https://color.adobe.com/Copie-de-Copy-of-Pastels-color-theme-11556921/edit/?copy=true
-// nice but not super necessary features:
-// clicking on a revealed tile which has a number that matched number of adjacent flags reveals neighboring tiles
-
-// **IF YOU REVEAL THE LAST SQUARE AND ITS A BOMB BUT YOU ARE AT 0 BOMBS LEFT (by mistakenly flagging wrong square) THE GAME POSTS A WIN AND A LOSS BUT SHOULD JUST BE A LOSS
-
 class Board extends React.Component {
   constructor(props) {
     super(props);
